@@ -19,5 +19,8 @@
   "bugs": {
     "url": "https://github.com/DavidIsrawi/Bumi-bot/issues"
   },
-  "homepage": "https://github.com/DavidIsrawi/Bumi-bot#readme"
+  "homepage": "https://github.com/DavidIsrawi/Bumi-bot#readme",
+  "dependencies": {
+    "tmi.js": "^1.7.1"
+  }
 }
