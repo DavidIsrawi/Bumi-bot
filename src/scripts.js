@@ -1,3 +1,5 @@
+var fs = require('fs');
+
 class ScriptManager {
     constructor(client) {
         this.client = client;
@@ -16,10 +18,14 @@ function SayHello(client, tags, message, channel) {
 }
 
 // Smash arena
-// TODO: Script to change arena ID
 function GetArenaInfo(client, message, channel) {
     if (message === '!arena') {
-        client.say(channel, `XXXXX XXX`)
+        // Reading json every time instead of doing 'require' so I can update
+        // the json file with new arena info without having to restart the bot
+        var appRoot = process.cwd()
+        var arenaFile = fs.readFileSync(appRoot + '/arena.json', 'utf8');
+        var arenaInfo = JSON.parse(arenaFile);
+        client.say(channel, arenaInfo.arena_info);
     }
 }
 
