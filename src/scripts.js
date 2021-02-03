@@ -7,7 +7,8 @@ class ScriptManager {
 
     CheckMessageScripts(tags, message, channel) {
         SayHello(this.client, tags, message, channel);
-        GetArenaInfo(this.client, message, channel);
+        SayArenaInfo(this.client, message, channel);
+        SayDoubleCaret(this.client, message, channel);
     }
 
     TriggerHostedScript(username, channel) {
@@ -22,7 +23,7 @@ function SayHello(client, tags, message, channel) {
 }
 
 // Smash arena
-function GetArenaInfo(client, message, channel) {
+function SayArenaInfo(client, message, channel) {
     if (message === '!arena') {
         // Reading json every time instead of doing 'require' so I can update
         // the json file with new arena info without having to restart the bot
@@ -30,6 +31,12 @@ function GetArenaInfo(client, message, channel) {
         var arenaFile = fs.readFileSync(appRoot + '/arena.json', 'utf8');
         var arenaInfo = JSON.parse(arenaFile);
         client.say(channel, arenaInfo.arena_info);
+    }
+}
+
+function SayDoubleCaret(client, message, channel) {
+    if (message === '^') {
+        client.say(channel, '^^');
     }
 }
 
