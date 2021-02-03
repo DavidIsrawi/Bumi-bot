@@ -18,7 +18,12 @@ const client = new tmi.Client(options);
 client.connect().catch(console.error);
 
 const scriptManager = new ScriptManager(client);
+
 client.on('message', (channel, tags, message, self) => {
-	if(self) return;
-    scriptManager.CheckScripts(tags, message.toLowerCase(), channel);
+	if (self) return;
+    scriptManager.CheckMessageScripts(tags, message.toLowerCase(), channel);
+});
+
+client.on("hosted", (channel, username, viewers, autohost) => {
+	scriptManager.TriggerHostedScript(username, channel);
 });

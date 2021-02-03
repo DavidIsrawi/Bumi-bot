@@ -5,9 +5,13 @@ class ScriptManager {
         this.client = client;
     }
 
-    CheckScripts(tags, message, channel) {
+    CheckMessageScripts(tags, message, channel) {
         SayHello(this.client, tags, message, channel);
         GetArenaInfo(this.client, message, channel);
+    }
+
+    TriggerHostedScript(username, channel) {
+        WelcomeHostedCrew(this.client, username, channel);
     }
 }
 
@@ -27,6 +31,10 @@ function GetArenaInfo(client, message, channel) {
         var arenaInfo = JSON.parse(arenaFile);
         client.say(channel, arenaInfo.arena_info);
     }
+}
+
+function WelcomeHostedCrew(client, username, channel) {
+    client.say(channel, 'Welcome to ' + username + '`s crew! Thank you for hosting')
 }
 
 module.exports.ScriptManager = ScriptManager;
