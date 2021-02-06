@@ -27,3 +27,7 @@ client.on('message', (channel, tags, message, self) => {
 client.on("hosted", (channel, username, viewers, autohost) => {
 	scriptManager.TriggerHostedScript(username, channel);
 });
+
+client.on("raided", (channel, username, viewers) => {
+    scriptManager.TriggerRaidedScript(username, channel);
+});

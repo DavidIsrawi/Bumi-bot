@@ -12,7 +12,11 @@ class ScriptManager {
     }
 
     TriggerHostedScript(username, channel) {
-        WelcomeHostedCrew(this.client, username, channel);
+        ThankHosting(this.client, username, channel);
+    }
+
+    TriggerRaidedScript(username, channel) {
+        WelcomeRaid(this.client, username, channel);
     }
 }
 
@@ -40,8 +44,12 @@ function SayDoubleCaret(client, message, channel) {
     }
 }
 
-function WelcomeHostedCrew(client, username, channel) {
-    client.say(channel, 'Welcome to ' + username + '`s crew! Thank you for hosting')
+function ThankHosting(client, username, channel) {
+    client.say(channel, 'Woot! Thank you to ' + username + ' for hosting!')
+}
+
+function WelcomeRaid(client, username, channel) {
+    client.say(channel, 'Noice! Welcome to ' + username + '`s crew! Thank you for raiding')
 }
 
 module.exports.ScriptManager = ScriptManager;
