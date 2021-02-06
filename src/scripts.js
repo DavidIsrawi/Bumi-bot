@@ -1,4 +1,5 @@
 var fs = require('fs');
+const { GenerateFrameDataLinkFromMessage } = require('./frameDataLinksHandler.js');
 
 class ScriptManager {
     constructor(client) {
@@ -9,6 +10,7 @@ class ScriptManager {
         SayHello(this.client, tags, message, channel);
         SayArenaInfo(this.client, message, channel);
         SayDoubleCaret(this.client, message, channel);
+        SayCharacterFrameData(this.client, message, channel);
     }
 
     TriggerHostedScript(username, channel) {
@@ -32,7 +34,7 @@ function SayArenaInfo(client, message, channel) {
         // Reading json every time instead of doing 'require' so I can update
         // the json file with new arena info without having to restart the bot
         var appRoot = process.cwd()
-        var arenaFile = fs.readFileSync(appRoot + '/arena.json', 'utf8');
+        var arenaFile = fs.readFileSync(appRoot + '/utils/arena.json', 'utf8');
         var arenaInfo = JSON.parse(arenaFile);
         client.say(channel, arenaInfo.arena_info);
     }
@@ -42,6 +44,29 @@ function SayDoubleCaret(client, message, channel) {
     if (message === '^') {
         client.say(channel, '^^');
     }
+}
+
+function SayCharacterFrameData(client, message, channel) {
+    if (message.substring(0,10) == '!framedata') {
+        const messageArray = message.split(' ');
+        const IsValidArenaCommand = messageArray !== null && messageArray.length > 1;
+        const commandParameters = message.substring(11);
+        
+        if (!IsValidArenaCommand) {
+            client.say(channel, 'Frame data parameters not recognized. Use `!framedata help` for more info');
+            return;
+        }
+
+        if (commandParameters === 'help') {
+            client.say(channel, 'You can say !framedata followed by a character for their frame data info - e.g. `!framedata k rool`');
+            return;
+        }
+
+        // At this point we assume that whatever was passed after !framedata is an attempt of a character name
+        const messageToSend = GenerateFrameDataLinkFromMessage(message.substring(11));
+        client.say(channel, messageToSend);
+    }
+    
 }
 
 function ThankHosting(client, username, channel) {
