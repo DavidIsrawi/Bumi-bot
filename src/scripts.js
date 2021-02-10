@@ -10,6 +10,7 @@ class ScriptManager {
         SayHello(this.client, tags, message, channel);
         SayArenaInfo(this.client, message, channel);
         SayDoubleCaret(this.client, message, channel);
+        SayNotLikeThis(this.client, message, channel);
         SayCharacterFrameData(this.client, message, channel);
     }
 
@@ -28,7 +29,6 @@ function SayHello(client, tags, message, channel) {
     }
 }
 
-// Smash arena
 function SayArenaInfo(client, message, channel) {
     if (message === '!arena') {
         // Reading json every time instead of doing 'require' so I can update
@@ -37,6 +37,13 @@ function SayArenaInfo(client, message, channel) {
         var arenaFile = fs.readFileSync(appRoot + '/utils/arena.json', 'utf8');
         var arenaInfo = JSON.parse(arenaFile);
         client.say(channel, arenaInfo.arena_info);
+    }
+}
+
+function SayNotLikeThis(client, message, channel) {
+    console.log(message);
+    if (message === 'notlikethis') {
+        client.say(channel, 'Oh noo, not like this!! NotLikeThis NotLikeThis NotLikeThis');
     }
 }
 
