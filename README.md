@@ -16,9 +16,17 @@ The connection and authorization is in `src/app.js`. You'll need to include a fi
 
 Besides that, all scripts are currently in `scripts.js`.
 
-### Smash Arena Script
+## Special Scripts
 
-If you want to use the script, simply add the arena info to arena.json. You can edit this file as the bot is running and will just re-fetch the file every time to read the latest value.
+### SSBU Arena Script
+
+Returns info regarding arena the streamer is using for others to join.
+
+If you want to use this script, simply add the arena info to arena.json. You can edit this file as the bot is running and will just re-fetch the file every time to read the latest value.
+
+### SSBU Frame Data
+
+Ask the bot for any SSBU character to receive a link with their frame data and much more.
 
 ## Relevant Sources
 
