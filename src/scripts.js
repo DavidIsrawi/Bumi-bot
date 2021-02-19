@@ -7,7 +7,10 @@ class ScriptManager {
     }
 
     CheckMessageScripts(tags, message, channel) {
-        SayHello(this.client, tags, message, channel);
+        var hasAdminRights = IsUserStreamerOrMod(tags);
+
+        UpdateArenaCode(this.client, message, channel, hasAdminRights);
+        SayHello(this.client, tags.username, message, channel);
         SayArenaInfo(this.client, message, channel);
         SayDoubleCaret(this.client, message, channel);
         SayNotLikeThis(this.client, message, channel);
@@ -23,9 +26,26 @@ class ScriptManager {
     }
 }
 
-function SayHello(client, tags, message, channel) {
+function UpdateArenaCode(client, message, channel, hasAdminRights) {
+    const parsedMessage = message.split(' ');
+    if (parsedMessage[0] === '!updatearena') {
+        if (parsedMessage.length === 3 && hasAdminRights) {
+            var arenaJson = {
+                "arena_info": parsedMessage[1].toUpperCase().concat(' ', parsedMessage[2].toUpperCase())
+            }
+            
+            fs.writeFileSync(GetArenaFilePath(), JSON.stringify(arenaJson));
+            client.say(channel, 'Arena updated');
+        }
+        else {
+            client.say(channel, 'Arena Update: incorrect parameters or not a mod');
+        }
+    }
+}
+
+function SayHello(client, username, message, channel) {
     if (message === '!hello' || message === '!hi') {
-		client.say(channel, `@${tags.username}, heya!`);
+		client.say(channel, `@${username}, heya!`);
     }
 }
 
@@ -33,15 +53,13 @@ function SayArenaInfo(client, message, channel) {
     if (message === '!arena') {
         // Reading json every time instead of doing 'require' so I can update
         // the json file with new arena info without having to restart the bot
-        var appRoot = process.cwd()
-        var arenaFile = fs.readFileSync(appRoot + '/utils/arena.json', 'utf8');
+        var arenaFile = fs.readFileSync(GetArenaFilePath(), 'utf8');
         var arenaInfo = JSON.parse(arenaFile);
         client.say(channel, arenaInfo.arena_info);
     }
 }
 
 function SayNotLikeThis(client, message, channel) {
-    console.log(message);
     if (message === 'notlikethis') {
         client.say(channel, 'Oh noo, not like this!! NotLikeThis NotLikeThis NotLikeThis');
     }
@@ -54,9 +72,9 @@ function SayDoubleCaret(client, message, channel) {
 }
 
 function SayCharacterFrameData(client, message, channel) {
-    if (message.substring(0,10) == '!framedata') {
-        const messageArray = message.split(' ');
-        const IsValidArenaCommand = messageArray !== null && messageArray.length > 1;
+    const messageArray = message.split(' ');
+    if (messageArray[0] == '!framedata') {
+        const IsValidArenaCommand = messageArray.length > 1;
         const commandParameters = message.substring(11);
         
         if (!IsValidArenaCommand) {
@@ -82,6 +100,15 @@ function ThankHosting(client, username, channel) {
 
 function WelcomeRaid(client, username, channel) {
     client.say(channel, 'Noice! Welcome to ' + username + '`s crew! Thank you for raiding')
+}
+
+function IsUserStreamerOrMod(tags) {
+    return tags.mod || tags['badges-raw'] === 'broadcaster/1';
+}
+
+function GetArenaFilePath() {
+    var appRoot = process.cwd();
+    return appRoot + '/utils/arena.json';
 }
 
 module.exports.ScriptManager = ScriptManager;
