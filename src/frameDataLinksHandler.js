@@ -93,7 +93,7 @@ function MatchCharacterToHandle(message) {
     else if (message === "king dedede" || message === "dedede" || message.includes("d3")) {
         character = CHARACTER_TO_FRAME_DATA_MAP.king_dedede;
     }
-    else if (message === "king k rool" || message.includes("k. rool") || message.includes("k rool")) {
+    else if (message === "king k rool" || message.includes("rool")) {
         character = CHARACTER_TO_FRAME_DATA_MAP.king_k_rool;
     }
     else if (message === "kirby") {
