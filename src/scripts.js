@@ -1,3 +1,4 @@
+const { fail } = require('assert');
 var fs = require('fs');
 const { GenerateFrameDataLinkFromMessage } = require('./frameDataLinksHandler.js');
 
@@ -15,6 +16,7 @@ class ScriptManager {
         SayDoubleCaret(this.client, message, channel);
         SayNotLikeThis(this.client, message, channel);
         SayCharacterFrameData(this.client, message, channel);
+        Shame(this.client, message, channel);
     }
 
     TriggerHostedScript(username, channel) {
@@ -23,6 +25,13 @@ class ScriptManager {
 
     TriggerRaidedScript(username, channel) {
         WelcomeRaid(this.client, username, channel);
+    }
+}
+
+function Shame(client, message, channel) {
+    const parsedMessage = message.split(' ');
+    if (parsedMessage[0] === '!s' && parsedMessage.length > 1) {
+        client.say(channel, `Shame, shame! ${parsedMessage[1]}`);
     }
 }
 
