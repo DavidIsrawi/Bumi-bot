@@ -81,7 +81,7 @@ function MatchCharacterToHandle(message) {
     else if (message === "isabelle") {
         character = CHARACTER_TO_FRAME_DATA_MAP.isabelle;
     }
-    else if (message === "jigglypuff") {
+    else if (message === "jigglypuff" || message === "jiggly" || message === "puff") {
         character = CHARACTER_TO_FRAME_DATA_MAP.jigglypuff;
     }
     else if (message === "joker") {
