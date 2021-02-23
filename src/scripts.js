@@ -1,4 +1,3 @@
-const { fail } = require('assert');
 var fs = require('fs');
 const { GenerateFrameDataLinkFromMessage } = require('./frameDataLinksHandler.js');
 

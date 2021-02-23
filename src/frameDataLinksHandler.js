@@ -6,7 +6,7 @@ function MatchCharacterToHandle(message) {
     if (message.includes("banjo")) {
         character = CHARACTER_TO_FRAME_DATA_MAP.banjo_and_kazooie;
     }
-    else if (message === "bayonetta") {
+    else if (message === "bayonetta" || message === "bayo") {
         character = CHARACTER_TO_FRAME_DATA_MAP.bayonetta;
     }
     else if (message === "bowser") {
