@@ -16,6 +16,8 @@ class ScriptManager {
         SayNotLikeThis(this.client, message, channel);
         SayCharacterFrameData(this.client, message, channel);
         Shame(this.client, message, channel);
+        CorrectJaRule(this.client, message, channel);
+        Shoutout(this.client, message, channel);
     }
 
     TriggerHostedScript(username, channel) {
@@ -24,6 +26,20 @@ class ScriptManager {
 
     TriggerRaidedScript(username, channel) {
         WelcomeRaid(this.client, username, channel);
+    }
+}
+
+function CorrectJaRule(client, message, channel) {
+    if (message.includes('ja rule')) {
+        client.say(channel, `Did you mean K Rool?!`);
+    }
+}
+
+function Shoutout(client, message, channel) {
+    const parsedMessage = message.split(' ');
+    if (parsedMessage[0] === '!so' && parsedMessage.length > 1) {
+        const handle = parsedMessage[1].substring(1);
+        client.say(channel, `Be sure to follow ${handle} at http://twitch.tv/${handle} !`);
     }
 }
 
