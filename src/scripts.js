@@ -15,6 +15,7 @@ class ScriptManager {
         SayDoubleCaret(this.client, message, channel);
         SayNotLikeThis(this.client, message, channel);
         SayCharacterFrameData(this.client, message, channel);
+        ShareDiscord(this.client, message, channel);
         Shame(this.client, message, channel);
         CorrectJaRule(this.client, message, channel);
         Shoutout(this.client, message, channel);
@@ -40,6 +41,12 @@ function Shoutout(client, message, channel) {
     if (parsedMessage[0] === '!so' && parsedMessage.length > 1) {
         const handle = parsedMessage[1].substring(1);
         client.say(channel, `Be sure to follow ${handle} at http://twitch.tv/${handle} !`);
+    }
+}
+
+function ShareDiscord(client, message, channel) {
+    if (message === '!discord') {
+        client.say(channel, 'https://discord.gg/VxBejvpKxQ');
     }
 }
 
