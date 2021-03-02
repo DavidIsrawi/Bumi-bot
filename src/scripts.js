@@ -1,4 +1,5 @@
 var fs = require('fs');
+const streamerInfo = require('../utils/streamerInfo.json');
 const { GenerateFrameDataLinkFromMessage } = require('./frameDataLinksHandler.js');
 
 class ScriptManager {
@@ -46,7 +47,7 @@ function Shoutout(client, message, channel) {
 
 function ShareDiscord(client, message, channel) {
     if (message === '!discord') {
-        client.say(channel, 'https://discord.gg/VxBejvpKxQ');
+        client.say(channel, streamerInfo.discord);
     }
 }
 
@@ -139,7 +140,7 @@ function IsUserStreamerOrMod(tags) {
 
 function GetArenaFilePath() {
     var appRoot = process.cwd();
-    return appRoot + '/utils/arena.json';
+    return appRoot + '/utils/gameInfo.json';
 }
 
 module.exports.ScriptManager = ScriptManager;
