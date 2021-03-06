@@ -174,6 +174,9 @@ function MatchCharacterToHandle(message) {
     else if (message === "pit") {
         character = CHARACTER_TO_FRAME_DATA_MAP.pit;
     }
+    else if (message === "pyra" || message === "mythra") {
+        character = CHARACTER_TO_FRAME_DATA_MAP.pyra_mythra;
+    }
     else if (message === "squirtle") {
         character = CHARACTER_TO_FRAME_DATA_MAP.pt_squirtle;
     }

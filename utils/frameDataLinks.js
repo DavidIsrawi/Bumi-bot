@@ -59,6 +59,7 @@ const CHARACTER_TO_FRAME_DATA_MAP = {
     pt_squirtle: "pt_squirtle",
     pt_ivysaur: "pt_ivysaur",
     pt_charizard: "pt_charizard",
+    pyra_mythra: "pyra-mythra",
     richter: "richter",
     ridley: "ridley",
     rob: "rob",
