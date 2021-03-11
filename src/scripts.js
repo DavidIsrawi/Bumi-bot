@@ -11,8 +11,12 @@ class ScriptManager {
         var hasAdminRights = IsUserStreamerOrMod(tags);
 
         UpdateArenaCode(this.client, message, channel, hasAdminRights);
-        SayHello(this.client, tags.username, message, channel);
         SayArenaInfo(this.client, message, channel);
+
+        UpdateBracket(this.client, message, channel, hasAdminRights);
+        SayBracket(this.client, message, channel, hasAdminRights);
+
+        SayHello(this.client, tags.username, message, channel);
         SayDoubleCaret(this.client, message, channel);
         SayNotLikeThis(this.client, message, channel);
         SayCharacterFrameData(this.client, message, channel);
@@ -62,16 +66,40 @@ function UpdateArenaCode(client, message, channel, hasAdminRights) {
     const parsedMessage = message.split(' ');
     if (parsedMessage[0] === '!updatearena') {
         if (parsedMessage.length === 3 && hasAdminRights) {
-            var arenaJson = {
-                "arena_info": parsedMessage[1].toUpperCase().concat(' ', parsedMessage[2].toUpperCase())
-            }
+
+            var gameInfo = GetGameInfoJSON();
+            gameInfo.arena_info = parsedMessage[1].toUpperCase().concat(' ', parsedMessage[2].toUpperCase());
             
-            fs.writeFileSync(GetArenaFilePath(), JSON.stringify(arenaJson));
+            fs.writeFileSync(GetGameFilePath(), JSON.stringify(gameInfo));
             client.say(channel, 'Arena updated');
         }
         else {
             client.say(channel, 'Arena Update: incorrect parameters or not a mod');
         }
+    }
+}
+
+function UpdateBracket(client, message, channel, hasAdminRights) {
+    const parsedMessage = message.split(' ');
+    if (parsedMessage[0] === '!updatebracket') {
+        if (parsedMessage.length === 2 && hasAdminRights) {
+
+            var gameInfo = GetGameInfoJSON();
+            gameInfo.bracket = parsedMessage[1];
+            
+            fs.writeFileSync(GetGameFilePath(), JSON.stringify(gameInfo));
+            client.say(channel, 'Bracket updated');
+        }
+        else {
+            client.say(channel, 'Bracket Update: incorrect parameters or not a mod');
+        }
+    }
+}
+
+function SayBracket(client, message, channel) {
+    if (message === '!bracket') {
+        var gameInfo = GetGameInfoJSON();
+        client.say(channel, gameInfo.bracket);
     }
 }
 
@@ -83,11 +111,8 @@ function SayHello(client, username, message, channel) {
 
 function SayArenaInfo(client, message, channel) {
     if (message === '!arena') {
-        // Reading json every time instead of doing 'require' so I can update
-        // the json file with new arena info without having to restart the bot
-        var arenaFile = fs.readFileSync(GetArenaFilePath(), 'utf8');
-        var arenaInfo = JSON.parse(arenaFile);
-        client.say(channel, arenaInfo.arena_info);
+        var gameInfo = GetGameInfoJSON();
+        client.say(channel, gameInfo.arena_info);
     }
 }
 
@@ -138,9 +163,16 @@ function IsUserStreamerOrMod(tags) {
     return tags.mod || tags['badges-raw'] === 'broadcaster/1';
 }
 
-function GetArenaFilePath() {
+function GetGameFilePath() {
     var appRoot = process.cwd();
     return appRoot + '/utils/gameInfo.json';
+}
+
+function GetGameInfoJSON() {
+    // Reading json every time instead of doing 'require' so I can update
+    // the json file with new info without having to restart the bot
+    var gameFile = fs.readFileSync(GetGameFilePath(), 'utf8');
+    return JSON.parse(gameFile); 
 }
 
 module.exports.ScriptManager = ScriptManager;
