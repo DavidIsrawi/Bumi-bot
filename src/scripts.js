@@ -67,10 +67,8 @@ function UpdateArenaCode(client, message, channel, hasAdminRights) {
     if (parsedMessage[0] === '!updatearena') {
         if (parsedMessage.length === 3 && hasAdminRights) {
 
-            var gameInfo = GetGameInfoJSON();
-            gameInfo.arena_info = parsedMessage[1].toUpperCase().concat(' ', parsedMessage[2].toUpperCase());
-            
-            fs.writeFileSync(GetGameFilePath(), JSON.stringify(gameInfo));
+            const arena = parsedMessage[1].toUpperCase().concat(' ', parsedMessage[2].toUpperCase());
+            UpdateGameInfo('arena', arena);
             client.say(channel, 'Arena updated');
         }
         else {
@@ -84,10 +82,8 @@ function UpdateBracket(client, message, channel, hasAdminRights) {
     if (parsedMessage[0] === '!updatebracket') {
         if (parsedMessage.length === 2 && hasAdminRights) {
 
-            var gameInfo = GetGameInfoJSON();
-            gameInfo.bracket = parsedMessage[1];
-            
-            fs.writeFileSync(GetGameFilePath(), JSON.stringify(gameInfo));
+            const bracket = parsedMessage[1];
+            UpdateGameInfo('bracket', bracket);
             client.say(channel, 'Bracket updated');
         }
         else {
@@ -98,8 +94,8 @@ function UpdateBracket(client, message, channel, hasAdminRights) {
 
 function SayBracket(client, message, channel) {
     if (message === '!bracket') {
-        var gameInfo = GetGameInfoJSON();
-        client.say(channel, gameInfo.bracket);
+        var bracket = GetGameInfoJSON('bracket');
+        client.say(channel, bracket);
     }
 }
 
@@ -111,8 +107,8 @@ function SayHello(client, username, message, channel) {
 
 function SayArenaInfo(client, message, channel) {
     if (message === '!arena') {
-        var gameInfo = GetGameInfoJSON();
-        client.say(channel, gameInfo.arena_info);
+        var arena = GetGameInfoJSON('arena');
+        client.say(channel, arena);
     }
 }
 
@@ -168,11 +164,18 @@ function GetGameFilePath() {
     return appRoot + '/utils/gameInfo.json';
 }
 
-function GetGameInfoJSON() {
+function GetGameInfoJSON(key = null) {
     // Reading json every time instead of doing 'require' so I can update
     // the json file with new info without having to restart the bot
-    var gameFile = fs.readFileSync(GetGameFilePath(), 'utf8');
-    return JSON.parse(gameFile); 
+    const gameFile = fs.readFileSync(GetGameFilePath(), 'utf8');
+    const gameInfo = JSON.parse(gameFile);
+    return key === null ? gameInfo : gameInfo[key];
+}
+
+function UpdateGameInfo(key, value) {
+    var gameInfo = GetGameInfoJSON();
+    gameInfo[key] = value;
+    fs.writeFileSync(GetGameFilePath(), JSON.stringify(gameInfo));
 }
 
 module.exports.ScriptManager = ScriptManager;
