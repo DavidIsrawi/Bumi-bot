@@ -1,7 +1,9 @@
 const tmi = require('tmi.js');
-const env = require('../config.json');
 const { ScriptManager } = require('./scripts');
 
+// for local dev, uncomment the following require and change all environment variables
+// to come from env instead of process.env
+// const env = require('../config.json');
 const options = {
 	options: { debug: true, messagesLogLevel: "info" },
 	connection: {
@@ -9,10 +11,10 @@ const options = {
 		secure: true
 	},
 	identity: {
-		username: env.USERNAME,
-		password: env.OAUTH_TOKEN
+		username: process.env.USERNAME,
+		password: process.env.OAUTH_TOKEN
 	},
-	channels: [ env.MY_CHANNEL ]
+	channels: [ process.env.MY_CHANNEL ]
 }
 const client = new tmi.Client(options);
 client.connect().catch(console.error);
