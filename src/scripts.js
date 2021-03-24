@@ -44,7 +44,7 @@ function CorrectJaRule(client, message, channel) {
 function Shoutout(client, message, channel) {
     const parsedMessage = message.split(' ');
     if (parsedMessage[0] === '!so' && parsedMessage.length > 1) {
-        const handle = parsedMessage[1].substring(1);
+        const handle = parsedMessage[1][0] === '@' ? parsedMessage[1].substring(1) : parsedMessage[1];
         client.say(channel, `Be sure to follow ${handle} at http://twitch.tv/${handle} !`);
     }
 }
@@ -156,7 +156,7 @@ function WelcomeRaid(client, username, channel) {
 }
 
 function IsUserStreamerOrMod(tags) {
-    return tags.mod || tags['badges-raw'].contains('broadcaster');
+    return tags.mod || 'broadcaster' in tags['badges-raw'];
 }
 
 function GetGameFilePath() {
