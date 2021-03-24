@@ -156,7 +156,7 @@ function WelcomeRaid(client, username, channel) {
 }
 
 function IsUserStreamerOrMod(tags) {
-    return tags.mod || tags['badges-raw'] === 'broadcaster/1';
+    return tags.mod || tags['badges-raw'].contains('broadcaster');
 }
 
 function GetGameFilePath() {
