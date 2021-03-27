@@ -57,7 +57,7 @@ function MatchCharacterToHandle(message) {
     else if (message === "fox") {
         character = CHARACTER_TO_FRAME_DATA_MAP.fox;
     }
-    else if (message === "ganondorf") {
+    else if (message === "ganon" || message === "ganondorf") {
         character = CHARACTER_TO_FRAME_DATA_MAP.ganondorf;
     }
     else if (message === "greninja") {
