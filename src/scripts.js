@@ -135,7 +135,7 @@ function SayCharacterFrameData(client, message, channel) {
             return;
         }
 
-        if (commandParameters === 'help') {
+        if (commandParameters === 'help' || commandParameters === '?') {
             client.say(channel, 'You can say !framedata followed by a character for their frame data info - e.g. `!framedata k rool`');
             return;
         }
