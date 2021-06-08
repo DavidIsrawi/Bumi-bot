@@ -16,6 +16,9 @@ class ScriptManager {
         UpdateBracket(this.client, message, channel, hasAdminRights);
         SayBracket(this.client, message, channel, hasAdminRights);
 
+        UpdateLatestVideo(this.client, message, channel, hasAdminRights);
+        SayLatestVideo(this.client, message, channel, hasAdminRights);
+
         SayHello(this.client, tags.username, message, channel);
         SayDoubleCaret(this.client, message, channel);
         SayNotLikeThis(this.client, message, channel);
@@ -89,6 +92,28 @@ function UpdateBracket(client, message, channel, hasAdminRights) {
         else {
             client.say(channel, 'Bracket Update: incorrect parameters or not a mod');
         }
+    }
+}
+
+function UpdateLatestVideo(client, message, channel, hasAdminRights) {
+    const parsedMessage = message.split(' ');
+    if (parsedMessage[0] === '!updatelatestvideo') {
+        if (parsedMessage.length === 2 && hasAdminRights) {
+
+            const videoLink = parsedMessage[1];
+            UpdateGameInfo('latest-video', videoLink);
+            client.say(channel, 'Latest video link updated');
+        }
+        else {
+            client.say(channel, 'Video Update: incorrect parameters or not a mod');
+        }
+    }
+}
+
+function SayLatestVideo(client, message, channel) {
+    if (message === '!latestvideo') {
+        var videoLink = GetGameInfoJSON('latest-video');
+        client.say(channel, videoLink);
     }
 }
 
