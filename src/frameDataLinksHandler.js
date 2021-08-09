@@ -87,6 +87,9 @@ function MatchCharacterToHandle(message) {
     else if (message === "joker") {
         character = CHARACTER_TO_FRAME_DATA_MAP.joker;
     }
+    else if (message == "kazuya") {
+        character = CHARACTER_TO_FRAME_DATA_MAP.kazuya;
+    }
     else if (message === "ken") {
         character = CHARACTER_TO_FRAME_DATA_MAP.ken;
     }

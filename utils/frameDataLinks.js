@@ -27,6 +27,7 @@ const CHARACTER_TO_FRAME_DATA_MAP = {
     isabelle: "isabelle",
     jigglypuff: "jigglypuff",
     joker: "joker",
+    kazuya: "kazuya",
     ken: "ken",
     king_dedede: "king_dedede",
     king_k_rool: "king_k_rool",
