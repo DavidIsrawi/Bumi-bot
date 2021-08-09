@@ -1,6 +1,7 @@
 var fs = require('fs');
 const streamerInfo = require('../utils/streamerInfo.json');
 const { GenerateFrameDataLinkFromMessage } = require('./frameDataLinksHandler.js');
+const { HELP } = require('../utils/help.js');
 
 class ScriptManager {
     constructor(client) {
@@ -9,6 +10,8 @@ class ScriptManager {
 
     CheckMessageScripts(tags, message, channel) {
         var hasAdminRights = IsUserStreamerOrMod(tags);
+
+        PrintHelp(this.client, message, channel);
 
         UpdateArenaCode(this.client, message, channel, hasAdminRights);
         SayArenaInfo(this.client, message, channel);
@@ -127,6 +130,12 @@ function SayBracket(client, message, channel) {
 function SayHello(client, username, message, channel) {
     if (message === '!hello' || message === '!hi') {
 		client.say(channel, `@${username}, heya!`);
+    }
+}
+
+function PrintHelp(client, message, channel) {
+    if (message === '!help') {
+        client.say(channel, HELP);
     }
 }
 
