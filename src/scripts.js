@@ -1,7 +1,7 @@
 var fs = require('fs');
+const help = require('../utils/help.js');
 const streamerInfo = require('../utils/streamerInfo.json');
 const { GenerateFrameDataLinkFromMessage } = require('./frameDataLinksHandler.js');
-const { HELP } = require('../utils/help.js');
 
 class ScriptManager {
     constructor(client) {
@@ -135,7 +135,9 @@ function SayHello(client, username, message, channel) {
 
 function PrintHelp(client, message, channel) {
     if (message === '!help') {
-        client.say(channel, HELP);
+        for(let key in help.HELP_COMMANDS) {
+            client.say(channel, help.HELP_COMMANDS[key]);
+        }
     }
 }
 
