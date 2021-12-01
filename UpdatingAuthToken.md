@@ -10,7 +10,11 @@ https://id.twitch.tv/oauth2/authorize
     &scope=channel:moderate+chat:edit+chat:read
 ```
 
-## The right way of doing it - Refresh Token
+You will get a prompt to authenticate. After authenticating, you will find your new token in the new URL.
+
+Copy this new token and voilà.
+
+# The right way of doing it - Refresh Token
 
 I currently don't follow this approach, but it is a way to avoid having to manually update the token every 60 days.
 
