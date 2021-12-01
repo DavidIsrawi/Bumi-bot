@@ -18,4 +18,4 @@ Copy this new token and voilà.
 
 I currently don't follow this approach, but it is a way to avoid having to manually update the token every 60 days.
 
-[Follow the documentation here in order to implemnent it](https://dev.twitch.tv/docs/authentication#refreshing-access-tokens)
+[Here is the documentation](https://dev.twitch.tv/docs/authentication#refreshing-access-tokens)
