@@ -75,6 +75,7 @@ const CHARACTER_TO_FRAME_DATA_MAP = {
     simon: "simon",
     snake: "snake",
     sonic: "sonic",
+    sora: "sora",
     steve: "steve",
     terry: "terry",
     toon_link: "toon_link",

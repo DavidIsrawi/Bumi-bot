@@ -231,6 +231,9 @@ function MatchCharacterToHandle(message) {
     else if (message === "sonic") {
         character = CHARACTER_TO_FRAME_DATA_MAP.sonic;
     }
+    else if (message === "sora") {
+        character = CHARACTER_TO_FRAME_DATA_MAP.sora;
+    }
     else if (message === "steve") {
         character = CHARACTER_TO_FRAME_DATA_MAP.steve;
     }
